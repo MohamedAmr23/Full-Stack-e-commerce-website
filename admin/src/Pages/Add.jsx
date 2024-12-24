@@ -13,8 +13,12 @@ const Add = () => {
   const [bestseller,setBestseller] = useState(false)
   const [price , setPrice] = useState('')
   const [sizes,setSizes] = useState([])
+
+  const onSubmitHandler = async(e)=>{
+    e.preventDefault()
+  }
   return (
-    <from className='flex flex-col w-full items-start gap-3'>
+    <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
       <div className="mb-1">
         <p className="mb-2">Upload Image</p>
         <div className="flex gap-2">
@@ -38,16 +42,16 @@ const Add = () => {
       </div>
       <div className="w-full">
         <p className="mb-2">Product name</p>
-        <input className="py-2 px-3 w-full max-w-[500px]" type="text" placeholder="Type here" required/>
+        <input onChange={(e)=>setName(e.target.value)} value={name} className="py-2 px-3 w-full max-w-[500px]" type="text" placeholder="Type here" required/>
       </div>
       <div className="w-full">
         <p className="mb-2">Product description</p>
-        <textarea className="py-2 px-3 w-full max-w-[500px]" type="text" placeholder="Write content here" required/>
+        <textarea onChange={(e)=>setDescription(e.target.value)} value={description} className="py-2 px-3 w-full max-w-[500px]" type="text" placeholder="Write content here" required/>
       </div>
       <div className="flex flex-col sm:flex-row gap-2 w-full sm:gap-8">
           <div>
             <p className="mb-2">Product category</p>
-            <select className="w-full px-3 py-2">
+            <select onChange={(e)=>setCategory(e.target.value)} className="w-full px-3 py-2">
               <option value='Men'>Men</option>
               <option value='Women'>Women</option>
               <option value='Kids'>Kids</option>
@@ -55,7 +59,7 @@ const Add = () => {
           </div>
           <div>
             <p className="mb-2">Sub category</p>
-            <select className="w-full px-3 py-2">
+            <select onChange={(e)=>setSubCategory(e.target.value)} className="w-full px-3 py-2">
               <option value='Topwear'>Topwear</option>
               <option value='Bottomwear'>Bottomwear</option>
               <option value='Winterwear'>Winterwear</option>
@@ -63,25 +67,25 @@ const Add = () => {
           </div>
           <div>
             <p className="mb-2">Product Price</p>
-            <input type="Number" className="w-full px-3 py-2 sm:w-[120px]" placeholder="25"/>
+            <input onChange={(e)=>setPrice(e.target.value)} value={price} type="Number" className="w-full px-3 py-2 sm:w-[120px]" placeholder="25"/>
           </div>
       </div>
       <div>
         <p className="mb-2">Product Sizes</p>
         <div className="flex gap-3">
-          <div><p className="bg-slate-200 px-3 py-1 cursor-pointer">S</p></div>
-          <div><p className="bg-slate-200 px-3 py-1 cursor-pointer">M</p></div>
-          <div><p className="bg-slate-200 px-3 py-1 cursor-pointer">L</p></div>
-          <div><p className="bg-slate-200 px-3 py-1 cursor-pointer">XL</p></div>
-          <div><p className="bg-slate-200 px-3 py-1 cursor-pointer">XXL</p></div>
+          <div onClick={()=>setSizes((prev)=>prev.includes('S')?prev.filter((item)=>item !=='S'):[...prev,'S'])}><p className={`${sizes.includes("S")?'bg-pink-100':'bg-slate-200'} px-3 py-1 cursor-pointer`}>S</p></div>
+          <div onClick={()=>setSizes((prev)=>prev.includes('M')?prev.filter((item)=>item !=='M'):[...prev,'M'])}><p className={`${sizes.includes("M")?'bg-pink-100':'bg-slate-200'} px-3 py-1 cursor-pointer`}>M</p></div>
+          <div onClick={()=>setSizes((prev)=>prev.includes('L')?prev.filter((item)=>item !=='L'):[...prev,'L'])}><p className={`${sizes.includes("L")?'bg-pink-100':'bg-slate-200'} px-3 py-1 cursor-pointer`}>L</p></div>
+          <div onClick={()=>setSizes((prev)=>prev.includes('XL')?prev.filter((item)=>item !=='XL'):[...prev,'XL'])}><p className={`${sizes.includes("XL")?'bg-pink-100':'bg-slate-200'} px-3 py-1 cursor-pointer`}>XL</p></div>
+          <div onClick={()=>setSizes((prev)=>prev.includes('XXL')?prev.filter((item)=>item !=='XXL'):[...prev,'XXL'])}><p className={`${sizes.includes("XXL")?'bg-pink-100':'bg-slate-200'} px-3 py-1 cursor-pointer`}>XXL</p></div>
         </div>
       </div>
       <div className="flex gap-2 mt-2">
-        <input type="checkbox" id="bestseller"/>
+        <input onChange={()=>setBestseller(prev=>!prev)} checked={bestseller} type="checkbox" id="bestseller"/>
         <label htmlFor='bestseller' className="cursor-pointer">Add to bestseller</label>
       </div>
       <button type="submit" className="w-28 py-3 mt-4 bg-black text-white">ADD</button>
-    </from>
+    </form>
   );
 };
 
