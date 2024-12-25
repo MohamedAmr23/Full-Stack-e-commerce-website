@@ -16,7 +16,6 @@ const App = () => {
   );
   useEffect(() => {
     localStorage.setItem("ecommerceToken", token);
-    console.log(token);
   }, [token]);
   return (
     <div className="bg-gray-50 min-h-screen">
