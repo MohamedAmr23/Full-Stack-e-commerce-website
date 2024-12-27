@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import  { useState } from "react";
+import PropTypes from "prop-types";
 import { assets } from "../assets/assets.js";
 import axios from "axios";
 import { backendUrl } from "../App.jsx";
@@ -55,6 +56,7 @@ const Add = ({token}) => {
       }
     }catch(error){
       console.log(error)
+      toast.error(error.message)
     }
   }
   return (
@@ -130,3 +132,7 @@ const Add = ({token}) => {
 };
 
 export default Add;
+
+Add.propTypes = {
+  token: PropTypes.string.isRequired,
+}
